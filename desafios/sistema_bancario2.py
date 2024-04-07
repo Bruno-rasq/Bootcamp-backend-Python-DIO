@@ -43,10 +43,12 @@
     o usuario pode ter mais de uma conta, mas uma conta pertence a somente um usuario.
 
 '''
-# variaveis globais
+# [VARIAVEIS GLOBAIS]
+
 usuarios = []
 contas_correntes = []
 
+#[EXEMPLOS DE USUARIO/CONTA]
 
 usuario = { #exemplo de usuario cadastrado
   "nome": 'bruno',
@@ -69,6 +71,8 @@ usuarios.append(usuario)
 contas_correntes.append(conta)
 
 
+#[TELAS]
+
 menu_inicial = f'''
 ====================================
 
@@ -84,25 +88,30 @@ menu_inicial = f'''
 menu_cadastro = f'''
 ====================================
 
-            Bem-vindo
+            Cadastro
 
   [A] - criar uma conta corrente.
   [B] - cadastrar um novo usuário.
+  [C] - sair.
 
 ====================================
 '''
 
 menu_operacional = f'''
 ====================================
-Menu
+      
+      Menu
 
-[1] - Depositar
-[2] - Sacar
-[3] - ver extrato
-[4] - sair.
+      [A] - Depositar.
+      [B] - Sacar.
+      [C] - ver extrato.
+      [D] - sair.
 
 ====================================
 '''
+
+
+#[METODOS]:
 
 '''
 A função de cadastrar novo usuario tem como unico requisito que o CPF não seja repetido.
@@ -130,8 +139,6 @@ def cadastrar_novo_usuario():
     
   usuarios.append(new_user)
   print("novo usuario cadastrado com sucesso!")
-  print(usuarios)
-
 
 '''
 A função de cadastrar nova conta corrente tem como requisto somente ser possivel criar nova conta
@@ -161,10 +168,7 @@ def cadastrar_nova_conta_corrente():
       contas_correntes.append(new_conta)
       print("nova conta cadastrada com sucesso!")
     else: 
-      print(contas_correntes)
       return
-
-  print(contas_correntes)
 
 '''
 requisição de dados necessarios para habilitar operações de conta corrente
@@ -179,7 +183,6 @@ def verificacao_de_seguranca(*, conta, cpf_conta, senha_conta):
     print('Acesso a conta negada, senha ou numero de CPF inválidos')
     return False
    
-
 '''
 função de deposito utiliza o numero da conta que sera informado pelo usuario como uma forma de buscar
 a conta mais rapido na lista de contas correntes, apos buscar a conta antes de concluir a operação
@@ -204,8 +207,7 @@ def deposito(numero_da_conta):
     conta['saldo'] += valor
     conta['extrato'].append(f'Deposito de R$ {valor:.2f}')
   else:
-    return
-  
+    return 
 
 '''
 a função de saque utiliza como argumento o numero da conta assim como a função de deposito
@@ -240,7 +242,6 @@ def saque(numero_da_conta):
       print('saldo insuficiente')
   else:
     return
-  print(conta)
 
 '''
 A função de extrato utiliza o numero da conta e senha do usuario como argumentos,
@@ -266,11 +267,102 @@ Saldo atual: R${conta["saldo"]:.2f}
 ===================================
     ''')
 
+    
+#[TESTES DE METODOS]
 
-# [TESTES]
+# cadastrar_novo_usuario()
+# cadastrar_nova_conta_corrente()
+# deposito(1)
+# saque(numero_da_conta=1)
+# extrato(1, senhan=123)
 
-# cadastrar_novo_usuario() - OK
-# cadastrar_nova_conta_corrente() - OK
-# deposito(1) - OK
-# saque(numero_da_conta=1) - OK
-# extrato(1, senha=123) - OK
+
+#[FLUXO PRINCIPAL]
+
+'''
+menu principal, exibido assim que o programa começar a rodar
+'''
+def menu_principal():
+  while True:
+    opcao = input(menu_inicial)
+
+    if opcao == 'a':
+      menu_entrar()
+
+    elif opcao == 'b':
+      menu_cadastrar()
+      
+    elif opcao == 'c':
+      print('Obrigado por usar nosso sistema')
+      break
+      
+    else:
+      print("opcao invalida")
+
+'''
+menu operacional, abre assim que o usuario escolher a opcao entrar no menu principal
+é nele que as operações de saque, deposito e extrato são realizadas
+'''
+def menu_entrar():
+  while True:
+    opcao = input(menu_operacional)
+
+    if opcao == 'a':
+      numero_da_conta = int(input('insira o numero da conta: '))
+      deposito(numero_da_conta)
+
+    elif opcao == 'b':
+      numero_da_conta = int(input('insira o numero da conta: '))
+      saque(numero_da_conta=numero_da_conta)
+
+    elif opcao == 'c':
+      numero_da_conta = int(input('insira o numero da conta: '))
+      senha = int(input('insira sua senha: '))
+      extrato(numero_da_conta, senha=senha)
+
+    elif opcao == 'd':
+      break
+
+    else:
+      print("opcao invalida")
+
+'''
+menu de cadastro, abre assim que o usuario escolher a opcao cadastrar no menu principal
+posibilitando o cadastro de novo usuario e nova conta corrente
+'''
+def menu_cadastrar():
+  while True:
+    opcao = input(menu_cadastro)
+
+    if opcao == 'a':
+      cadastrar_nova_conta_corrente()
+      
+    elif opcao == 'b':
+      cadastrar_novo_usuario()
+
+    elif opcao == 'c':
+      break
+
+    else:
+      print("opcao invalida")
+
+
+
+
+#menu_principal()
+
+
+# RUN....
+#menu_principal()
+
+'''
+  NOTAS:
+
+    - alguns metodos utilizam o numero da conta como argumento, isso facilita na hora de buscar
+    por essas contas na lista porem o usuario não tem acesso a esse valor de primeira mão
+
+    - houve um erro: IndexError: list index out of range na função deposito assim que ela é chamada 
+    no fluxo principal.
+
+    etc...
+'''
