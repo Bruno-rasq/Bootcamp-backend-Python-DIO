@@ -153,22 +153,35 @@ def cadastrar_nova_conta_corrente():
   usuario_CPF = input('insira o CPF do usuario: ')
   senha = int(input('insira uma senha numerica: '))
 
-  new_conta = {
-    "agencia": agencia,
-    "numero-da-conta": numero_da_conta,
-    "usuario-CPF": usuario_CPF,
-    "senha": senha,
-    "saldo": 0,
-    "extrato": []
-  }
+  # new_conta = {
+  #   "agencia": agencia,
+  #   "numero-da-conta": numero_da_conta,
+  #   "usuario-CPF": usuario_CPF,
+  #   "senha": senha,
+  #   "saldo": 0,
+  #   "extrato": []
+  # }
 
-  # verifica se existe algum usuario cadastrado com o CPF informado
+  # Verifica se existe algum usuário cadastrado com o CPF informado
+  usuario_encontrado = False
   for usuario in usuarios:
-    if usuario['CPF'] == usuario_CPF:
+      if usuario['CPF'] == usuario_CPF:
+          usuario_encontrado = True
+          break
+
+  if usuario_encontrado:
+      new_conta = {
+          "agencia": agencia,
+          "numero-da-conta": numero_da_conta,
+          "usuario-CPF": usuario_CPF,
+          "senha": senha,
+          "saldo": 0,
+          "extrato": []
+      }
       contas_correntes.append(new_conta)
-      print("nova conta cadastrada com sucesso!")
-    else: 
-      return
+      print(f"Nova conta cadastrada com sucesso!, numero da conta {new_conta['numero-da-conta']}")
+  else:
+      print("Erro: Usuário não encontrado com o CPF informado.")
 
 '''
 requisição de dados necessarios para habilitar operações de conta corrente
@@ -206,6 +219,7 @@ def deposito(numero_da_conta):
   if verificar_dados == True:
     conta['saldo'] += valor
     conta['extrato'].append(f'Deposito de R$ {valor:.2f}')
+    print("deposito realizado com sucesso!")
   else:
     return 
 
@@ -235,6 +249,7 @@ def saque(numero_da_conta):
       if valor <= 500: #500 reais é o limite de saque
         conta['saldo'] -= valor
         conta['extrato'].append(f'Saque de R$ {valor:.2f}')
+        print('saque realizado com sucesso!')
       else:
         print('Saque não permitido. valor excedeu o limite de R$500.00')
         return
@@ -255,8 +270,17 @@ def extrato(numero_da_conta, senha):
   conta = contas_correntes[numero_da_conta - 1]
 
   if conta['senha'] == senha:
-    print('============ EXTRATO ==============')
-    print('')
+
+    print(f'''
+
+============ EXTRATO ==============
+    
+CPF: {conta['usuario-CPF']}
+Agencia: {conta['agencia']}
+numero da conta: {conta['numero-da-conta']}
+    
+    ''')
+    
     for item in conta['extrato']:
       print(item)
       
@@ -308,8 +332,8 @@ def menu_entrar():
     opcao = input(menu_operacional)
 
     if opcao == 'a':
-      numero_da_conta = int(input('insira o numero da conta: '))
-      deposito(numero_da_conta)
+      numero = int(input('insira o numero da conta: '))
+      deposito(numero)
 
     elif opcao == 'b':
       numero_da_conta = int(input('insira o numero da conta: '))
@@ -348,21 +372,5 @@ def menu_cadastrar():
 
 
 
-
-#menu_principal()
-
-
 # RUN....
-#menu_principal()
-
-'''
-  NOTAS:
-
-    - alguns metodos utilizam o numero da conta como argumento, isso facilita na hora de buscar
-    por essas contas na lista porem o usuario não tem acesso a esse valor de primeira mão
-
-    - houve um erro: IndexError: list index out of range na função deposito assim que ela é chamada 
-    no fluxo principal.
-
-    etc...
-'''
+menu_principal()
