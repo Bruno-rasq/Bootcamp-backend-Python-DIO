@@ -52,14 +52,14 @@ contas_correntes = []
 
 usuario = { #exemplo de usuario cadastrado
   "nome": 'bruno',
-  "data-de-nascimento": '22/07/2001',
+  "NASCIMENTO": '22/07/2001',
   "CPF": '12345678910',
   "endereco": 'rua - numero - bairro - cidade/sigla - estado'
 }
 
 conta = { #exemplo de conta corrente
   "agencia": "0001",
-  "numero-da-conta": 1,
+  "numero_da_conta": 1,
   "usuario-CPF": '12345678910',
   "senha": 123,
   "saldo": 6000,
@@ -126,7 +126,7 @@ def cadastrar_novo_usuario():
   
   new_user = {
     "nome": nome,
-    "data-de-nascimento": data_de_nasc,
+    "NASCIMENTO": data_de_nasc,
     "CPF": CPF,
     "endereco": endereco,
   }
@@ -153,15 +153,6 @@ def cadastrar_nova_conta_corrente():
   usuario_CPF = input('insira o CPF do usuario: ')
   senha = int(input('insira uma senha numerica: '))
 
-  # new_conta = {
-  #   "agencia": agencia,
-  #   "numero-da-conta": numero_da_conta,
-  #   "usuario-CPF": usuario_CPF,
-  #   "senha": senha,
-  #   "saldo": 0,
-  #   "extrato": []
-  # }
-
   # Verifica se existe algum usuário cadastrado com o CPF informado
   usuario_encontrado = False
   for usuario in usuarios:
@@ -172,14 +163,14 @@ def cadastrar_nova_conta_corrente():
   if usuario_encontrado:
       new_conta = {
           "agencia": agencia,
-          "numero-da-conta": numero_da_conta,
-          "usuario-CPF": usuario_CPF,
+          "numero_da_conta": numero_da_conta,
+          "usuario_CPF": usuario_CPF,
           "senha": senha,
           "saldo": 0,
           "extrato": []
       }
       contas_correntes.append(new_conta)
-      print(f"Nova conta cadastrada com sucesso!, numero da conta {new_conta['numero-da-conta']}")
+      print(f"Nova conta cadastrada com sucesso!, numero da conta {new_conta['numero_da_conta']}")
   else:
       print("Erro: Usuário não encontrado com o CPF informado.")
 
@@ -189,7 +180,7 @@ modo de execução: verificacao_de_seguranca(conta=conta cpf_conta=cpf, senha=se
 '''
 def verificacao_de_seguranca(*, conta, cpf_conta, senha_conta):
   
-  if conta['usuario-CPF'] == cpf_conta and conta['senha'] == senha_conta:
+  if conta['usuario_CPF'] == cpf_conta and conta['senha'] == senha_conta:
     return True
     
   else:
@@ -275,9 +266,9 @@ def extrato(numero_da_conta, senha):
 
 ============ EXTRATO ==============
     
-CPF: {conta['usuario-CPF']}
+CPF: {conta['usuario_CPF']}
 Agencia: {conta['agencia']}
-numero da conta: {conta['numero-da-conta']}
+numero da conta: {conta['numero_da_conta']}
     
     ''')
     
