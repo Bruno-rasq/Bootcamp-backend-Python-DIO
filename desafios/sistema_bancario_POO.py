@@ -193,16 +193,18 @@ def filtrar_cliente(cpf, clientes):
     clientes_filtrados = [cliente for cliente in clientes if cliente.cpf == cpf]
     return clientes_filtrados[0] if clientes_filtrados else None
 
-def recuperar_conta_cliente(cliente):
+def recuperar_conta_cliente(cliente, numero_conta):
     if not cliente.contas:
         print("\n@@@ Cliente não possui conta! @@@")
         return
 
-    # FIXME: não permite cliente escolher a conta
-    return cliente.contas[0]
+    for conta in cliente.contas:
+      if conta.numero == numero_conta:
+        return conta
 
 def depositar(clientes):
     cpf = input("Informe o CPF do cliente: ")
+    numero_conta = int(input("Informe o número da conta: "))
     cliente = filtrar_cliente(cpf, clientes)
 
     if not cliente:
@@ -212,7 +214,7 @@ def depositar(clientes):
     valor = float(input("Informe o valor do depósito: "))
     transacao = Deposito(valor)
 
-    conta = recuperar_conta_cliente(cliente)
+    conta = recuperar_conta_cliente(cliente, numero_conta)
     if not conta:
         return
 
@@ -220,6 +222,7 @@ def depositar(clientes):
 
 def sacar(clientes):
     cpf = input("Informe o CPF do cliente: ")
+    numero_conta = int(input("Informe o número da conta: "))
     cliente = filtrar_cliente(cpf, clientes)
 
     if not cliente:
@@ -229,7 +232,7 @@ def sacar(clientes):
     valor = float(input("Informe o valor do saque: "))
     transacao = Saque(valor)
 
-    conta = recuperar_conta_cliente(cliente)
+    conta = recuperar_conta_cliente(cliente, numero_conta)
     if not conta:
         return
 
@@ -237,13 +240,14 @@ def sacar(clientes):
 
 def exibir_extrato(clientes):
     cpf = input("Informe o CPF do cliente: ")
+    numero_conta = int(input("Informe o número da conta: "))
     cliente = filtrar_cliente(cpf, clientes)
 
     if not cliente:
         print("\n@@@ Cliente não encontrado! @@@")
         return
 
-    conta = recuperar_conta_cliente(cliente)
+    conta = recuperar_conta_cliente(cliente, numero_conta)
     if not conta:
         return
 
