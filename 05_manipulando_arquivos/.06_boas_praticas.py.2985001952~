@@ -1,0 +1,11 @@
+from pathlib import Path
+
+ROOOT_PATH = Path(__file__).parent
+
+# file = open(ROOOT_PATH / 'lorem.txt', 'r')
+# file.close()
+
+with open(ROOOT_PATH / 'lorem.txt', 'r') as file: abre/execu
+  print('abrindo o arquivo')
+
+print(file.read()) #error pois file já foi fechado
