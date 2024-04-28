@@ -1,0 +1,12 @@
+
+[2024-04-28 22:11:00] funcao CRIAR_CLIENTE executada com argumentos ([<PessoaFisica, 1234>],) e {} retornou None
+[2024-04-28 22:11:07] funcao CRIAR_CONTA executada com argumentos (1, [<PessoaFisica, 1234>], [<ContaCorrente: (0001, 1, teste 1)>]) e {} retornou None
+[2024-04-28 22:11:27] funcao CRIAR_CLIENTE executada com argumentos ([<PessoaFisica, 1234>, <PessoaFisica, 4321>],) e {} retornou None
+[2024-04-28 22:11:36] funcao CRIAR_CONTA executada com argumentos (2, [<PessoaFisica, 1234>, <PessoaFisica, 4321>], [<ContaCorrente: (0001, 1, teste 1)>, <ContaCorrente: (0001, 2, teste 2)>]) e {} retornou None
+[2024-04-28 22:11:49] funcao DEPOSITAR executada com argumentos ([<PessoaFisica, 1234>, <PessoaFisica, 4321>],) e {} retornou None
+[2024-04-28 22:12:05] funcao DEPOSITAR executada com argumentos ([<PessoaFisica, 1234>, <PessoaFisica, 4321>],) e {} retornou None
+[2024-04-28 22:12:22] funcao EXIBIR_EXTRATO executada com argumentos ([<PessoaFisica, 1234>, <PessoaFisica, 4321>],) e {} retornou None
+[2024-04-28 22:12:34] funcao EXIBIR_EXTRATO executada com argumentos ([<PessoaFisica, 1234>, <PessoaFisica, 4321>],) e {} retornou None
+[2024-04-28 22:12:48] funcao SACAR executada com argumentos ([<PessoaFisica, 1234>, <PessoaFisica, 4321>],) e {} retornou None
+[2024-04-28 22:13:00] funcao EXIBIR_EXTRATO executada com argumentos ([<PessoaFisica, 1234>, <PessoaFisica, 4321>],) e {} retornou None
+[2024-04-28 22:13:29] funcao SACAR executada com argumentos ([<PessoaFisica, 1234>, <PessoaFisica, 4321>],) e {} retornou None
